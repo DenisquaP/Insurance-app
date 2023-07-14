@@ -1,0 +1,204 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "FastAPI",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/create_insurance_type": {
+        "post": {
+          "tags": [
+            "Insurance"
+          ],
+          "summary": "Create Insurance",
+          "operationId": "create_insurance_create_insurance_type_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsuranceCreate"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/get_all_insurance": {
+        "get": {
+          "tags": [
+            "Insurance"
+          ],
+          "summary": "Get All Insurance",
+          "operationId": "get_all_insurance_get_all_insurance_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/get_insurance_price": {
+        "get": {
+          "tags": [
+            "Insurance Value"
+          ],
+          "summary": "Get Insurance Price",
+          "operationId": "get_insurance_price_get_insurance_price_get",
+          "parameters": [
+            {
+              "name": "case_date",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Case Date"
+              }
+            },
+            {
+              "name": "cargo_type",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Cargo Type"
+              }
+            },
+            {
+              "name": "declared_value",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "number",
+                "title": "Declared Value"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "number",
+                    "title": "Response Get Insurance Price Get Insurance Price Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Cargo": {
+          "properties": {
+            "cargo_type": {
+              "type": "string",
+              "title": "Cargo Type",
+              "default": "Glass"
+            },
+            "rate": {
+              "type": "string",
+              "title": "Rate",
+              "default": "0.04"
+            }
+          },
+          "type": "object",
+          "title": "Cargo"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "InsuranceCreate": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/components/schemas/Cargo"
+            },
+            "type": "array"
+          },
+          "type": "object",
+          "title": "InsuranceCreate"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }
